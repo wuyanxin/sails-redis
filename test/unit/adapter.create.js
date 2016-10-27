@@ -45,6 +45,20 @@ describe('adapter `.create()`', function() {
         done();
       });
     });
+
+    it('should properly create a new record', function(done) {
+      var attributes = {
+        id: 1,
+        name: 'Darth Vader'
+      };
+
+      Adapter.create('create', 'numeric', attributes, function(err, model) {
+        if(err) throw err;
+        assert(model.id === 1);
+        assert(model.name === 'Darth Vader');
+        done();
+      });
+    });
   });
 
   describe('with primary string key', function() {
@@ -110,7 +124,7 @@ describe('adapter `.create()`', function() {
       Support.Teardown('create', 'unique', done);
     });
 
-    it('should not create record with non-unique attributes', function(done) {
+    it('should skip unique constrant', function(done) {
       var attributes = {
         id: 1,
         email: 'darth@hotmail.com'
@@ -119,28 +133,32 @@ describe('adapter `.create()`', function() {
       Adapter.create('create', 'unique', attributes, function(err, model) {
         if(err) throw err;
 
+        attributes = {
+          id: 2,
+          email: 'darth@hotmail.com'
+        };
         Adapter.create('create', 'unique', attributes, function(err, model) {
-          assert(err);
-          assert(err.message === Errors.NotUnique.message);
-          assert(!model);
+          if(err) throw err;
+          assert(model.id === 2);
+          assert(model.email === 'darth@hotmail.com');
           done();
         });
       });
     });
 
     it('should create record with unique attributes', function(done) {
-      Adapter.create('create', 'unique', { id: 2, email: 'han@hotmail.com' }, function(err, model) {
+      Adapter.create('create', 'unique', { id: 3, email: 'han@hotmail.com' }, function(err, model) {
         if(err) throw err;
 
         assert(model);
-        assert(model.id === 2);
+        assert(model.id === 3);
         assert(model.email === 'han@hotmail.com');
 
-        Adapter.create('create', 'unique', { id: 3, email: 'luke@hotmail.com' }, function(err, model) {
+        Adapter.create('create', 'unique', { id: 4, email: 'luke@hotmail.com' }, function(err, model) {
           if(err) throw err;
 
           assert(model);
-          assert(model.id === 3);
+          assert(model.id === 4);
           assert(model.email === 'luke@hotmail.com');
           done();
         });
