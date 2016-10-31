@@ -1,9 +1,9 @@
 {
-  "name": "sails-redis",
-  "version": "0.10.7",
-  "description": "Redis adapter for waterline",
+  "name": "sails-redis-lite",
+  "version": "0.1.0",
+  "description": "Light redis adapter for waterline. Develop for caching complecated model datas.",
   "main": "index.js",
-  "author": "vanetix <matmcfarland@gmail.com>",
+  "author": "Ethan Wu <wyx.ethan@gmail.com>",
   "contributors": [
     {
       "name": "Matt McFarland",
@@ -20,6 +20,10 @@
     {
       "name": "Carlo DiCelico",
       "email": "carlo@diceli.co"
+    },
+    {
+      "name": "Ethan Wu",
+      "email": "wyx.ethan@gmail.com"
     }
   ],
   "scripts": {
@@ -27,11 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/balderdashy/sails-redis.git"
+    "url": "https://github.com/wuyanxin/sails-redis-lite.git"
   },
   "keywords": [
     "redis",
     "orm",
+    "cache",
     "waterline",
     "sails",
     "sailsjs",
@@ -59,8 +64,7 @@
     "waterlineVersion": "~0.10.0",
     "interfaces": [
       "semantic",
-      "queryable",
-      "associations"
+      "queryable"
     ],
     "features": [
       "crossAdapter"
