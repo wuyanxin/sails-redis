@@ -1,21 +1,19 @@
 ![image_squidhome@2x.png](http://i.imgur.com/RIvu9.png)
 
-# Redis Sails/Waterline Adapter 
-[![Build Status](https://travis-ci.org/balderdashy/sails-redis.svg?branch=master)](https://travis-ci.org/balderdashy/sails-redis)
-[![npm version](https://badge.fury.io/js/sails-redis.svg)](http://badge.fury.io/js/sails-redis)
-[![Dependency Status](https://david-dm.org/balderdashy/sails-redis.svg)](https://david-dm.org/balderdashy/sails-redis)
+# Light Redis Sails/Waterline Adapter 
 
-A Sails/Waterline adapter for Redis. May be used in a [Sails](https://github.com/balderdashy/sails) app or anything using Waterline for the ORM.
+A light Sails/Waterline adapter for Redis. May be used in a [Sails](https://github.com/balderdashy/sails) app or anything using Waterline for the ORM.
 
-This `waterline-redis` stores indexes of unique attributes for *relatively* fast lookups. Collections with multiple unique constraints will create multiple index sets.
+Base on the [sails-redis](https://github.com/balderdashy/sails-redis), remove the indexes and unique constraints, add expire time support. 
 
+I develop it for caching complicated models datas which has a lot of associations.
 
 ## Install
 
 Install is through NPM.
 
 ```bash
-$ npm install sails-redis
+$ npm install sails-redis-lite
 ```
 
 ## Configuration
@@ -28,18 +26,7 @@ config: {
   port: 6379,
   host: 'localhost',
   password: null,
-  database: null,
-  options: {
-  
-    // low-level configuration
-    // (redis driver options)
-    parser: 'hiredis',
-    return_buffers: false,
-    detect_buffers: false,
-    socket_nodelay: true,
-    no_ready_check: false,
-    enable_offline_queue: true
-  }
+  database: null
 };
 ```
 
@@ -66,10 +53,9 @@ Note that if both the 'url' notation and the 'host', 'port' and / or 'password' 
 When using this library with sails add the config below to your `config/connections.js` file:
 
 ```js
-  },
   
   redis: {
-    adapter: "sails-redis",
+    adapter: "sails-redis-lite",
     port: 6379,
     host: 'localhost'
   }
